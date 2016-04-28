@@ -1,0 +1,51 @@
+{
+  "name": "sockbin",
+  "version": "0.1.0",
+  "description": ":zap: Websocket Requests and Response service. Built in Node.js :cake:",
+  "main": "sockbin.js",
+  "scripts": {
+    "test": "tap ./*.tap.js",
+    "develop": "nodemon sockbin.js",
+    "start": "node sockbin.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/therebelrobot/sockbin.git"
+  },
+  "keywords": [
+    "websocket",
+    "socket",
+    "httpbin",
+    "mockbin",
+    "service",
+    "mocking",
+    "requests",
+    "response",
+    "pub",
+    "sub",
+    "publish",
+    "subscribe"
+  ],
+  "author": "Trent Oswald <trentoswald@therebelrobot.com> (@therebelrobot)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/therebelrobot/sockbin/issues"
+  },
+  "homepage": "https://github.com/therebelrobot/sockbin#readme",
+  "devDependencies": {
+    "ejs": "^2.4.1",
+    "nodemon": "^1.9.1"
+  },
+  "dependencies": {
+    "dotenv": "^2.0.0",
+    "express": "^4.13.4",
+    "http": "0.0.0",
+    "path": "^0.12.7",
+    "query-parse": "^0.1.1",
+    "request": "^2.72.0",
+    "require-dir": "^0.3.0",
+    "url": "^0.11.0",
+    "websocket-driver": "^0.6.4",
+    "ws": "^1.1.0"
+  }
+}
