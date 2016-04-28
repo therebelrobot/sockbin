@@ -33,11 +33,11 @@
   },
   "homepage": "https://github.com/therebelrobot/sockbin#readme",
   "devDependencies": {
-    "ejs": "^2.4.1",
     "nodemon": "^1.9.1"
   },
   "dependencies": {
     "dotenv": "^2.0.0",
+    "ejs": "^2.4.1",
     "express": "^4.13.4",
     "http": "0.0.0",
     "path": "^0.12.7",
