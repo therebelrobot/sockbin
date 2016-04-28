@@ -1,6 +1,6 @@
 {
   "name": "sockbin",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": ":zap: Websocket Requests and Response service. Built in Node.js :cake:",
   "main": "sockbin.js",
   "scripts": {
