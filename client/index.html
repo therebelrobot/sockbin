@@ -97,6 +97,7 @@
     <div id="repeat-websockets" class="col-sm-3">
       <div class="row">
         <h4>Repeat</h4>
+        <em>*defaults to min 5s delay</em>
       </div>
       <div class="row">
         <pre><code id="repeat-output"></code></pre>
@@ -113,6 +114,7 @@
     <div id="delay-repeat-websockets" class="col-sm-3">
       <div class="row">
         <h4>Delay & Repeat</h4>
+        <em>*defaults to min 5s delay</em>
       </div>
       <div class="row">
         <pre><code id="delay-repeat-output"></code></pre>
@@ -129,6 +131,7 @@
     <div id="runfor-delay-websockets" class="col-sm-3">
       <div class="row">
         <h4>Run for & Delay</h4>
+        <em>*defaults to min 5s delay</em>
       </div>
       <div class="row">
         <pre><code id="runfor-delay-output"></code></pre>
@@ -169,7 +172,7 @@
       message:'pipe-message',
       kill:'pipe-kill'
     })
-    setUp('/delay/1000',{
+    setUp('/delay/5000',{
       output:'delay-output',
       send:'delay-send',
       connect:'delay-connect',
@@ -183,7 +186,7 @@
       message:'repeat-message',
       kill:'repeat-kill'
     })
-    setUp('/repeat/5/delay/1000',{
+    setUp('/repeat/5/delay/5000',{
       output:'delay-repeat-output',
       send:'delay-repeat-send',
       connect:'delay-repeat-connect',
