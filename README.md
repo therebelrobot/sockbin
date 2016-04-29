@@ -124,9 +124,24 @@ You can use the delay endpoint with a special endpoint, `runfor` to return every
 - When repeating with a delay, delay must be over 5 seconds, and repeat must be under 50
 - when using `runfor`, delay must be over 5 seconds, and `runfor` cannot be over 5 minutes.
 
+### Local Installation
+
+You can install sockbin by cloning this repo locally:
+
+```
+git clone https://github.com/therebelrobot/sockbin.git
+cd sockbin
+npm install
+npm start
+```
+
+Once there, if you set an environment variable of `OVERRIDE=token`, and include that in your url request as `&override=token`, it will bypass the hosted restrictions.
+
 ### Contributing
 
 Please feel free! [Open a Github Issue](https://github.com/therebelrobot/sockbin) for any issues you find, and feel free to [Fork this repo](https://github.com/therebelrobot/sockbin#fork-destination-box) to work on your own changes!
+
+If you are running this in development mode, use `npm run develop` instead of `npm start` to use `nodemon` automagically.
 
 ### License
 
