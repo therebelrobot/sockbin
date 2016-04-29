@@ -135,7 +135,7 @@ npm install
 npm start
 ```
 
-Once there, if you set an environment variable of `OVERRIDE=token`, and include that in your url request as `&override=token`, you can bypass bypass the hosted restrictions (*I'm not a monster.*)
+Once there, if you set an environment variable of `OVERRIDE=token`, and include that in your url request as `&override=token`, you can bypass bypass the hosted restrictions (*I'm not a monster*)
 
 ### Contributing
 
