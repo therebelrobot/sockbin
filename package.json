@@ -4,7 +4,7 @@
   "description": ":zap: Websocket Requests and Response service. Built in Node.js :cake:",
   "main": "sockbin.js",
   "scripts": {
-    "test": "tap ./*.tap.js",
+    "test": "tap test/*.tap.js",
     "develop": "nodemon sockbin.js",
     "start": "node sockbin.js"
   },
@@ -33,7 +33,8 @@
   },
   "homepage": "https://github.com/therebelrobot/sockbin#readme",
   "devDependencies": {
-    "nodemon": "^1.9.1"
+    "nodemon": "^1.9.1",
+    "tap": "^5.7.1"
   },
   "dependencies": {
     "dotenv": "^2.0.0",

@@ -1,320 +1,444 @@
+<!DOCTYPE html>
 <html>
+
 <head>
+  <meta http-equiv='content-type' value='text/html;charset=utf8'>
+  <title>sockbin(1): Websocket Echo Service</title>
+  <style type='text/css' media='all'>
+  /* style: man */
   
-  <meta charset="utf-8">
-
-  <title>Sockbin - Websocket echoing service</title>
-  <meta name=”description” content="Like httpbin, but for websockets.">
-
-  <link rel="icon" href="http://i.imgur.com/H0h9uBV.png" type="image/png">
-  <link rel="shortcut icon" href="http://i.imgur.com/H0h9uBV.png" type="image/png">
-
-  <!-- Schema.org markup for Google+ -->
-  <meta itemprop="name" content="Sockbin - Websocket echoing service">
-  <meta itemprop="description" content="Like httpbin, but for websockets">
-  <meta itemprop="image" content="http://i.imgur.com/H0h9uBV.png">
+  body#manpage {
+    margin: 0
+  }
   
-  <!-- Twitter Card data -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:site" content="@therebelrobot">
-  <meta name="twitter:title" content="Sockbin - Websocket echoing service">
-  <meta name="twitter:description" content="Like httpbin, but for websockets">
-  <meta name="twitter:creator" content="@therebelrobot">
-  <meta name="twitter:image:src" content="http://i.imgur.com/H0h9uBV.png">
+  .mp {
+    max-width: 100ex;
+    padding: 0 9ex 1ex 4ex
+  }
   
-  <!-- Open Graph data -->
-  <meta property="og:title" content="Sockbin - Websocket echoing service" />
-  <meta property="og:type" content="profile" />
-  <meta property="og:url" content="http://sockb.in" />
-  <meta property="og:image" content="http://i.imgur.com/H0h9uBV.png" />
-  <meta property="og:description" content="Like httpbin, but for websockets" />
-  <meta property="og:site_name" content="Sockbin - Websocket echoing service" />
-  <meta property="fb:admins" content="582330320" />
+  .mp p,
+  .mp pre,
+  .mp ul,
+  .mp ol,
+  .mp dl {
+    margin: 0 0 20px 0
+  }
+  
+  .mp h2 {
+    margin: 10px 0 0 0
+  }
+  
+  .mp > p,
+  .mp > pre,
+  .mp > ul,
+  .mp > ol,
+  .mp > dl {
+    margin-left: 6ex
+  }
+  
+  .mp h3 {
+    margin: 0 0 0 4ex
+  }
+  
+  .mp dt {
+    margin: 0;
+    clear: left
+  }
+  
+  .mp dt.flush {
+    float: left;
+    width: 8ex
+  }
+  
+  .mp dd {
+    margin: 0 0 0 9ex
+  }
+  
+  .mp h1,
+  .mp h2,
+  .mp h3,
+  .mp h4 {
+    clear: left
+  }
+  
+  .mp pre {
+    margin-bottom: 20px
+  }
+  
+  .mp pre+h2,
+  .mp pre+h3 {
+    margin-top: 22px
+  }
+  
+  .mp h2+pre,
+  .mp h3+pre {
+    margin-top: 5px
+  }
+  
+  .mp img {
+    display: block;
+    margin: auto
+  }
+  
+  .mp h1.man-title {
+    display: none
+  }
+  
+  .mp,
+  .mp code,
+  .mp pre,
+  .mp tt,
+  .mp kbd,
+  .mp samp,
+  .mp h3,
+  .mp h4 {
+    font-family: monospace;
+    font-size: 14px;
+    line-height: 1.42857142857143
+  }
+  
+  .mp h2 {
+    font-size: 16px;
+    line-height: 1.25
+  }
+  
+  .mp h1 {
+    font-size: 20px;
+    line-height: 2
+  }
+  
+  .mp {
+    text-align: left;
+    background: #fff
+  }
+  
+  .mp,
+  .mp code,
+  .mp pre,
+  .mp pre code,
+  .mp tt,
+  .mp kbd,
+  .mp samp {
+    color: #131211
+  }
+  
+  .mp h1,
+  .mp h2,
+  .mp h3,
+  .mp h4 {
+    color: #030201
+  }
+  
+  .mp u {
+    text-decoration: underline
+  }
+  
+  .mp code,
+  .mp strong,
+  .mp b {
+    font-weight: bold;
+    color: #131211
+  }
+  
+  .mp em,
+  .mp var {
+    font-style: italic;
+    color: #232221;
+    text-decoration: none
+  }
+  
+  .mp a,
+  .mp a:link,
+  .mp a:hover,
+  .mp a code,
+  .mp a pre,
+  .mp a tt,
+  .mp a kbd,
+  .mp a samp {
+    color: #0000ff
+  }
+  
+  .mp b.man-ref {
+    font-weight: normal;
+    color: #434241
+  }
+  
+  .mp pre {
+    padding: 0 4ex
+  }
+  
+  .mp pre code {
+    font-weight: normal;
+    color: #434241
+  }
+  
+  .mp h2+pre,
+  h3+pre {
+    padding-left: 0
+  }
+  
+  ol.man-decor,
+  ol.man-decor li {
+    margin: 3px 0 10px 0;
+    padding: 0;
+    float: left;
+    width: 33%;
+    list-style-type: none;
+    text-transform: uppercase;
+    color: #999;
+    letter-spacing: 1px
+  }
+  
+  ol.man-decor {
+    width: 100%
+  }
+  
+  ol.man-decor li.tl {
+    text-align: left
+  }
+  
+  ol.man-decor li.tc {
+    text-align: center;
+    letter-spacing: 4px
+  }
+  
+  ol.man-decor li.tr {
+    text-align: right;
+    float: right
+  }
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="css/style.css">
-
-  <!--[if lt IE 9]>
-    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-  <![endif]-->
-  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
-  <style rel="stylesheet" type="text/css">
-    .col-sm-3 {
-      margin:15px;
-    }
-    pre {
-      height:200px;
-      max-height:200px;
-    }
+  </style>
+  <style type='text/css' media='all'>
+  /* style: 80c */
+  
+  .mp {
+    max-width: 89ex
+  }
+  
+  ul {
+    list-style: None;
+    margin-left: 0!important
+  }
+  
+  .man-navigation {
+    left: 101ex
+  }
+  .fork-me {
+    z-index:2;
+    position: absolute; top: 0; right: 0; border: 0;
+  }
+  #output-window{
+    z-index:1;
+    display: block;
+    position: fixed;
+    right: 15px;
+    left: 600px;
+    top: 15px;
+    bottom: 0px;
+  }
+  #output-window code{
+    display: block;
+    position:absolute;
+    top:0px;
+    bottom:80px;
+    width: 100%;
+    padding: 9.5px;
+    margin: 0 0 10px;
+    font-size: 13px;
+    line-height: 1.42857143;
+    color: hsl(0, 0%, 20%);
+    word-break: break-all;
+    word-wrap: break-word;
+    background-image: url('http://i.imgur.com/P8JZunC.png');
+    background-repeat:no-repeat;
+    background-position:center center;
+    background-color: hsl(0, 0%, 96%);
+    border: 1px solid hsl(0, 0%, 80%);
+    border-radius: 4px;
+    box-sizing: border-box;
+    overflow-y:auto;
+  }
+  #output-window .button-bar {
+    display:block;
+    width:100%;
+    position:absolute;
+    bottom:15px;
+  }
+  #output-window .button-bar input {
+    width:100%;
+    height:30px;
+    border: 1px solid hsl(0, 0%, 80%);
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-bottom:10px;
+  }
+  #output-window .button-bar button{
+    display:block;
+    float:left;
+    margin:0 5px 10px;
+  }
+  * {
+    font-family: monospace;
+  }
   </style>
 </head>
-<body>
 
-  <div class="container">
-    <div class="row"><img src="https://raw.githubusercontent.com/therebelrobot/sockbin/master/sockbin-title-padding.png"/>
-      <h1>Sockbin</h1>
-      <p>
-        <code>ws://sockb.in/</code>
-      </p>
-      <p>Websocket Echo service. Built with websocket-driver in Node.js</p>
-    </div>
-    <div class="row">
-      <h2>Documentation</h2>
-      <p>For usage documentation, refer to the <a href="https://github.com/therebelrobot/sockbin">Github README</a></p>
+<body id='manpage'>
+  <a class="fork-me" href="http://github.com/therebelrobot/sockbin"><img src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
+  <div class='mp'>
+    <h1>sockbin(1): Websocket Echo Service</h1>
+    <p>Build with &lt;3 by <a href="https://therebelrobot.com/">therebelrobot</a> using <a href="https://nodejs.org">Node.js</a></p>
+    <h2 id="HOST">HOSTNAME</h2>
+    <ul>
+      <li><code>ws://sockb.in</code></li>
+    </ul>
+    <h2 id="ENDPOINTS">ENDPOINTS</h2>
+    <ul>
+      <li><a href="#" class="endpoint" data-endpoint="/"><code>/</code></a> Basic echo.</li>
+      <li><a href="#" class="endpoint" data-endpoint="/?response=%7Bfoo%3A%20bar%7D"><code>/?response=%7Bfoo%3A%20bar%7D</code></a> Custom Response.</li>
+      <li><a href="#" class="endpoint" data-endpoint="/?pipe=http%3A%2F%2Fhttpbin.org%2Fget"><code>/?pipe=http%3A%2F%2Fhttpbin.org%2Fget</code></a> Fetch an external url.</li>
+      <li><a href="#" class="endpoint" data-endpoint="/delay/1000"><code>/delay/:n</code></a> Return response after <em>n</em> millisecond delay.</li>
+      <li><a href="#" class="endpoint" data-endpoint="/repeat/5"><code>/repeat/:n</code></a> Return response <em>n</em> times.</li>
+      <li><a href="#" class="endpoint" data-endpoint="/runfor/60000/delay/5000"><code>/runfor/:n/delay/:n</code></a> Return response with <em>n</em> ms delay for <em>n</em> ms.</li>
+      <li><a href="#" class="endpoint" data-endpoint="/repeat/5/delay/5000"><code>/repeat/:n/delay/:n</code></a> Functions can be chained.</li>
+    </ul>
+    <h2 id="DESCRIPTION">DESCRIPTION</h2>
+    <p>Testing a websocket library can become difficult sometimes. <a href="http://httpbin.org">HTTPbin</a> is fantastic for testing normal HTTP requests, but doesn't provide endpoints for websockets. This exists to cover that need. Currently only supports raw websocket requests, however support for additional websocket libraries are being worked on (Socket.io, etc).</p>
+    <p><em>Note: Due to hosting restrictions, repeat, delay, and runfor have default values (&lt;50, &gt;5000, &lt;350000, respectively). To override these values, please install sockbin locally and use the <code>override</code> method. See below for details.</em></p>
+    <p><em>Examples on this page are using <a href="https://github.com/therebelrobot/soxx">soxx</a>, a simple websocket microlib.</em></p>
+    <h2 id="Installing-and-running-from-PyPI">Installing and running locally</h2>
+    <p>You can install sockbin locally and override the hosting service restrictions by <a href="http://github.com/therebelrobot/sockbin">cloning the repo</a> and setting an <code>OVERRIDE</code> environment variable.</p>
+    <pre><code class="bash">$ git clone https://github.com/therebelrobot/sockbin.git
+$ cd sockbin
+$ npm install
+$ OVERRIDE=token npm start
+</code></pre>
+    <p>When you then add <code>&override=token</code> to your request endpoint, you can spam your server as much as you like.</p>
+    <p>I'm currently working on getting a cli published to NPM (it's on there, but no interface atm). Check back soon for that.</p>
+    <h2 id="Changelog">Changelog</h2>
+    <ul>
+      <li>0.1.3: Updated client-facing page, integrated soxx</li>
+      <li>0.1.2: Added docs and reserved NPM name</li>
+      <li>0.1.1: Added initial files</li>
+    </ul>
+    <h2 id="AUTHOR">AUTHOR</h2>
+    <p>Originally created by <a href="http://therebelrobot.com/">Trent Oswald (@therebelrobot)</a>.</p>
+    <h2 id="SEE-ALSO">SEE ALSO</h2>
+    <p><a href="http://mockbin.com">mockbin</a> - Custom HTTP Request &amp; Response Endpoints.</p>
+    <p><a href="https://www.httpbin.org">httpbin</a> - HTTP Request &amp; Response Service.</p>
+    <p><a href="http://www.getpostman.com/">Postman</a> - Make HTTP requests and inspect responses.</p>
+    <p><a href="https://www.hurl.it">Hurl.it</a> - Make HTTP requests.</p>
+    <p><a href="http://requestb.in">RequestBin</a> - Inspect HTTP requests.</p>
+  </div>
+  <div id="output-window">
+    <code id="output">
+      Output:
+
+    </code>
+    <div class="button-bar">
+      <input class="message" type="text" value="Hello Sockbin!" />
+      <button class="connect">Connect</button>
+      <button class="send">Send Message</button>
+      <button class="kill">Disconnect</button>
     </div>
   </div>
-  <div class="container">
-    <div class="row">
-      <h1>Sockbin Playground</h1>
-    </div>
-    <div id="basic-websockets" class="col-sm-3">
-      <div class="row">
-        <h4>Basic</h4>
-      </div>
-      <div class="row">
-        <pre><code id="basic-output"></code></pre>
-      </div>
-      <div class="row">
-        <input id="basic-message" type="text" value="Hello Sockbin!" class="form-control"/>
-      </div>
-      <div class="row">
-        <button id="basic-connect" class="btn btn-primary">Connect</button>
-        <button id="basic-send" disabled="disabled" class="btn btn-default">Send Msg</button>
-        <button id="basic-kill" class="btn btn-danger">Disconnect</button><br/><br/>
-      </div>
-    </div>
-    <div id="custom-websockets" class="col-sm-3">
-      <div class="row">
-        <h4>Custom Response</h4>
-      </div>
-      <div class="row">
-        <pre><code id="custom-output"></code></pre>
-      </div>
-      <div class="row">
-        <input id="custom-message" type="text" value="Hello Sockbin!" class="form-control"/>
-      </div>
-      <div class="row">
-        <button id="custom-connect" class="btn btn-primary">Connect</button>
-        <button id="custom-send" disabled="disabled" class="btn btn-default">Send Msg</button>
-        <button id="custom-kill" class="btn btn-danger">Disconnect</button><br/><br/>
-      </div>
-    </div>
-    <div id="pipe-websockets" class="col-sm-3">
-      <div class="row">
-        <h4>Pipe External <code>GET</code>&nbsp;URL</h4>
-      </div>
-      <div class="row">
-        <pre><code id="pipe-output"></code></pre>
-      </div>
-      <div class="row">
-        <input id="pipe-message" type="text" value="Hello Sockbin!" class="form-control"/>
-      </div>
-      <div class="row">
-        <button id="pipe-connect" class="btn btn-primary">Connect</button>
-        <button id="pipe-send" disabled="disabled" class="btn btn-default">Send Msg</button>
-        <button id="pipe-kill" class="btn btn-danger">Disconnect</button><br/><br/>
-      </div>
-    </div>
-    <div id="delay-websockets" class="col-sm-3">
-      <div class="row">
-        <h4>Delay</h4>
-      </div>
-      <div class="row">
-        <pre><code id="delay-output"></code></pre>
-      </div>
-      <div class="row">
-        <input id="delay-message" type="text" value="Hello Sockbin!" class="form-control"/>
-      </div>
-      <div class="row">
-        <button id="delay-connect" class="btn btn-primary">Connect</button>
-        <button id="delay-send" disabled="disabled" class="btn btn-default">Send Msg</button>
-        <button id="delay-kill" class="btn btn-danger">Disconnect</button><br/><br/>
-      </div>
-    </div>
-    <div id="repeat-websockets" class="col-sm-3">
-      <div class="row">
-        <h4>Repeat</h4>
-        <em>*defaults to min 5s delay</em>
-      </div>
-      <div class="row">
-        <pre><code id="repeat-output"></code></pre>
-      </div>
-      <div class="row">
-        <input id="repeat-message" type="text" value="Hello Sockbin!" class="form-control"/>
-      </div>
-      <div class="row">
-        <button id="repeat-connect" class="btn btn-primary">Connect</button>
-        <button id="repeat-send" disabled="disabled" class="btn btn-default">Send Msg</button>
-        <button id="repeat-kill" class="btn btn-danger">Disconnect</button><br/><br/>
-      </div>
-    </div>
-    <div id="delay-repeat-websockets" class="col-sm-3">
-      <div class="row">
-        <h4>Delay & Repeat</h4>
-        <em>*defaults to min 5s delay</em>
-      </div>
-      <div class="row">
-        <pre><code id="delay-repeat-output"></code></pre>
-      </div>
-      <div class="row">
-        <input id="delay-repeat-message" type="text" value="Hello Sockbin!" class="form-control"/>
-      </div>
-      <div class="row">
-        <button id="delay-repeat-connect" class="btn btn-primary">Connect</button>
-        <button id="delay-repeat-send" disabled="disabled" class="btn btn-default">Send Msg</button>
-        <button id="delay-repeat-kill" class="btn btn-danger">Disconnect</button><br/><br/>
-      </div>
-    </div>
-    <div id="runfor-delay-websockets" class="col-sm-3">
-      <div class="row">
-        <h4>Run for & Delay</h4>
-        <em>*defaults to min 5s delay</em>
-      </div>
-      <div class="row">
-        <pre><code id="runfor-delay-output"></code></pre>
-      </div>
-      <div class="row">
-        <input id="runfor-delay-message" type="text" value="Hello Sockbin!" class="form-control"/>
-      </div>
-      <div class="row">
-        <button id="runfor-delay-connect" class="btn btn-primary">Connect</button>
-        <button id="runfor-delay-send" disabled="disabled" class="btn btn-default">Send Msg</button>
-        <button id="runfor-delay-kill" class="btn btn-danger">Disconnect</button><br/><br/>
-      </div>
-    </div>
-  </div>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js" type="text/javascript"></script>
+  <script type="text/javascript" src="https://cdn.rawgit.com/therebelrobot/soxx/f755395a744a248baf20228f443f7d6f6b77b946/dist/soxx.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.min.js"></script>
   <script type="text/javascript">
-  // https://github.com/therebelrobot/soxx
+$(document).ready(function () {
+  $(document).on('click', '.endpoint', function (event) {
+    console.log(this, event)
+    var $thisLink = $(event.target).closest('a')
+    var $output = $('#output')
+    var $connect = $('button.connect')
+    var $send = $('button.send')
+    var $kill = $('button.kill')
+    var $message = $('input.message')
 
-  $(document).ready(function () {
-    setUp('/',{
-      output:'basic-output',
-      send:'basic-send',
-      connect:'basic-connect',
-      message:'basic-message',
-      kill:'basic-kill'
-    })
-    setUp('/?response=%7Bfoo%3A%20bar%7D',{
-      output:'custom-output',
-      send:'custom-send',
-      connect:'custom-connect',
-      message:'custom-message',
-      kill:'custom-kill'
-    })
-    setUp('/?pipe=http%3A%2F%2Fhttpbin.org%2Fget',{
-      output:'pipe-output',
-      send:'pipe-send',
-      connect:'pipe-connect',
-      message:'pipe-message',
-      kill:'pipe-kill'
-    })
-    setUp('/delay/5000',{
-      output:'delay-output',
-      send:'delay-send',
-      connect:'delay-connect',
-      message:'delay-message',
-      kill:'delay-kill'
-    })
-    setUp('/repeat/5',{
-      output:'repeat-output',
-      send:'repeat-send',
-      connect:'repeat-connect',
-      message:'repeat-message',
-      kill:'repeat-kill'
-    })
-    setUp('/repeat/5/delay/5000',{
-      output:'delay-repeat-output',
-      send:'delay-repeat-send',
-      connect:'delay-repeat-connect',
-      message:'delay-repeat-message',
-      kill:'delay-repeat-kill'
-    })
-    setUp('/runfor/1m/delay/5000',{
-      output:'runfor-delay-output',
-      send:'runfor-delay-send',
-      connect:'runfor-delay-connect',
-      message:'runfor-delay-message',
-      kill:'runfor-delay-kill'
-    })
-  })
-
-  function setUp (path, elements) {
-    console.log(window.location)
+    var path = $thisLink.attr('data-endpoint')
     var wsUri = 'ws://' + window.location.host + path
-    var output = document.getElementById(elements.output)
-
-    var init = function init () {
-      console.log('function init')
-      writeToScreen('CONNECTING to '+path+' ...')
-      testWebSocket()
-    }
-
-    var testWebSocket = function testWebSocket () {
-      console.log('function testWebSockets')
-      websocket = new WebSocket(wsUri)
-      websocket.onopen = function (evt) {
-        onOpen(evt)
-      }
-      websocket.onclose = function (evt) {
-        onClose(evt)
-      }
-      websocket.onmessage = function (evt) {
-        onMessage(evt)
-      }
-      websocket.onerror = function (evt) {
-        onError(evt)
-      }
-    }
-
-    var onOpen = function onOpen (evt) {
-      console.log('function onOpen')
-      writeToScreen('CONNECTED to '+path)
-      $('#'+elements.send).attr('disabled', false)
-    }
-
-    var onClose = function onClose (evt) {
-      console.log('function onClose')
-      writeToScreen('DISCONNECTED from '+path)
-    }
-
-    var onMessage = function onMessage (evt) {
-      console.log('function onMessage')
-      writeToScreen('<span style="color: blue;">RESPONSE: ' + evt.data + '</span>')
-    }
-
-    var onError = function onError (evt) {
-      console.log('function onError')
-      writeToScreen('<span style="color: red;">ERROR:</span> ' + evt.data)
-    }
-
-    var doSend = function doSend (message) {
-      console.log('function doSend')
-      writeToScreen('SENT: ' + message)
-      websocket.send(message)
-    }
-
-    var writeToScreen = function writeToScreen (message) {
-      console.log('function writeToScreen')
+    var writeToOutput = function writeToOutput (message) {
       var pre = document.createElement('p')
       pre.style.wordWrap = 'break-word'
       pre.innerHTML = message
-      output.appendChild(pre)
+      $output.append(pre)
+      $output[0].scrollTop = $output[0].scrollHeight;
     }
-    $('#'+elements.connect).on('click', init)
-    $('#'+elements.send).on('click', function () {
-      var message = $('#'+elements.message).val()
+    var onOpen = function onOpen (evt) {
+      writeToOutput('<span style="color: green;">CONNECTED to ' + path + '</span>')
+      $send.attr('disabled', false)
+      $kill.attr('disabled', false)
+      $connect.attr('disabled', true)
+    }
+
+    var onRetry = function onRetry (evt) {
+      writeToOutput('Retrying connection to ' + path)
+      $('#' + elements.send).attr('disabled', false)
+    }
+    var onClose = function onClose (evt) {
+      writeToOutput('<span style="color: orange;">DISCONNECTED from ' + path + '</span>')
+      $send.attr('disabled', true)
+      $kill.attr('disabled', true)
+      $connect.attr('disabled', false)
+      window.websocket = false
+    }
+
+    var onMessage = function onMessage (evt) {
+      writeToOutput('<span style="color: blue;">RESPONSE: ' + evt.data + '</span>')
+    }
+
+    var onError = function onError (evt) {
+      writeToOutput('<span style="color: red;">RESPONSE: ' + evt.data + '</span>')
+    }
+
+    var doSend = function doSend (message) {
+      writeToOutput('SENT: ' + message)
+      window.websocket.write(message)
+    }
+    var connect = function connect () {
+      $send.attr('disabled', true)
+      $kill.attr('disabled', true)
+      $connect.attr('disabled', true)
+      window.websocket = new Soxx({
+        url: wsUri,
+        onOpen: onOpen,
+        onClose: onClose,
+        onRetry: onRetry,
+        onMessage: onMessage,
+        onError: onError
+      })
+      writeToOutput('CONNECTING to ' + path + ' ...')
+      window.websocket.connect()
+    }
+    $send.attr('disabled', true)
+    $kill.attr('disabled', true)
+    $connect.attr('disabled', true)
+    if (window.websocket) {
+      var thisPath = window.websocket._settings.url
+      thisPath = thisPath.split('ws://' + window.location.host)[1]
+      window.websocket._settings.onClose = function () {
+        writeToOutput('<span style="color: orange;">DISCONNECTED from ' + thisPath + '</span>')
+        connect()
+      }
+      writeToOutput('DISCONNECTING from ' + thisPath + ' ...')
+      window.websocket.disconnect()
+    } else {
+      connect()
+    }
+    $connect.off('click').on('click', connect)
+    $send.off('click').on('click', function () {
+      var message = $message.val()
       doSend(message)
     })
-    $('#'+elements.kill).on('click', function () {
-      writeToScreen('DISCONNECTING from '+path+' ...')
-      $('#'+elements.send).attr('disabled', true)
-      websocket.close()
+    $kill.off('click').on('click', function () {
+      writeToOutput('DISCONNECTING from ' + path + ' ...')
+      window.websocket.disconnect()
     })
-  }
+  })
+})
 
   </script>
-
 </body>
+
 </html>
+
