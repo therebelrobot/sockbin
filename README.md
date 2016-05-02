@@ -141,7 +141,7 @@ Once there, if you set an environment variable of `OVERRIDE=token`, and include 
 
 Please feel free! [Open a Github Issue](https://github.com/therebelrobot/sockbin) for any issues you find, and feel free to [Fork this repo](https://github.com/therebelrobot/sockbin#fork-destination-box) to work on your own changes!
 
-If you are running this in development mode, use `npm run develop` instead of `npm start` to use `nodemon` automagically.
+If you are running this in development mode, use `npm run develop` instead of `npm start` to use `nodemon` automagically :cake:.
 
 ### License
 
