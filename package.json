@@ -6,7 +6,8 @@
   "scripts": {
     "test": "tap test/*.tap.js",
     "develop": "nodemon sockbin.js",
-    "start": "node sockbin.js"
+    "start": "node sockbin.js",
+    "build:docker": "docker build -t sockbin ."
   },
   "repository": {
     "type": "git",
